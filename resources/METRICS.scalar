@@ -1,0 +1,1550 @@
+[{
+  "_id": {
+    "$oid": "68cc8b0ccba143e4b2335bd9"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:21.946Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 5563,
+  "count": 5563,
+  "sum": 5563,
+  "min": 1,
+  "max": 5563,
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b0dcba143e4b2335bde"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:25.135Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b0ecba143e4b2335be3"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:25.982Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b14cba143e4b2335be8"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:26.697Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b1acba143e4b23371a9"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:35.318Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 5563,
+  "count": 1,
+  "sum": 5563,
+  "min": 5563,
+  "max": 5563,
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "kafka_payloads",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b1acba143e4b23371aa"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:33.237Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b21cba143e4b23371b0"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:39.049Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "kafka_payloads",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b21cba143e4b23371b1"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:39.049Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b22cba143e4b23371b7"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:46.139Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "kafka_payloads",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b22cba143e4b23371b8"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:46.139Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b28cba143e4b23371be"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:47.036Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "kafka_payloads",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b28cba143e4b23371bf"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:47.036Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b2dcba143e4b233831f"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:53.487Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b2dcba143e4b233831d"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:55.555Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 5563,
+  "count": 1,
+  "sum": 5563,
+  "min": 5563,
+  "max": 5563,
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "sandbox2_mongo_target",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b2dcba143e4b233831c"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:55.657Z"
+  },
+  "metricName": "alfrd_kafka_to_mongo_sink_records_count",
+  "metricType": "counter",
+  "value": 11126,
+  "count": 1,
+  "sum": 11126,
+  "min": 11126,
+  "max": 11126,
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b2dcba143e4b233831b"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:53.487Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "kafka_payloads",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b2dcba143e4b233831e"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:55.773Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 4437,
+  "count": 4437,
+  "sum": 4437,
+  "min": 1,
+  "max": 4437,
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b2ecba143e4b2338326"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:57.649Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "kafka_payloads",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b2ecba143e4b2338329"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:57.650Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b2ecba143e4b2338328"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:57.650Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "sandbox2_mongo_target",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b2ecba143e4b2338327"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:57.649Z"
+  },
+  "metricName": "alfrd_kafka_to_mongo_sink_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b2ecba143e4b233832a"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:57.650Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b35cba143e4b2338335"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:58.978Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b35cba143e4b2338332"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:58.978Z"
+  },
+  "metricName": "alfrd_kafka_to_mongo_sink_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b35cba143e4b2338331"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:58.978Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "kafka_payloads",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b35cba143e4b2338334"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:58.978Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b35cba143e4b2338333"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:43:58.978Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "sandbox2_mongo_target",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b37cba143e4b2338340"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:06.122Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b37cba143e4b233833e"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:06.122Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "sandbox2_mongo_target",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b37cba143e4b233833f"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:06.122Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b37cba143e4b233833c"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:06.122Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "kafka_payloads",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b37cba143e4b233833d"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:06.122Z"
+  },
+  "metricName": "alfrd_kafka_to_mongo_sink_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b3ecba143e4b2338348"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:07.816Z"
+  },
+  "metricName": "alfrd_kafka_to_mongo_sink_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b3ecba143e4b233834b"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:07.816Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b3ecba143e4b2338349"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:07.816Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "sandbox2_mongo_target",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b3ecba143e4b2338347"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:07.816Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "kafka_payloads",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b3ecba143e4b233834a"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:07.816Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b41cba143e4b2338353"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:15.320Z"
+  },
+  "metricName": "alfrd_kafka_to_mongo_sink_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b41cba143e4b2338355"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:15.320Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b41cba143e4b2338354"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:15.320Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "sandbox2_mongo_target",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b41cba143e4b2338356"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:15.320Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b41cba143e4b2338352"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:15.320Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "kafka_payloads",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b50cba143e4b23394b4"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:17.888Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "sandbox2_mongo_target",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b50cba143e4b23394b5"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:17.888Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b50cba143e4b23394b3"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:17.888Z"
+  },
+  "metricName": "alfrd_kafka_to_mongo_sink_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b50cba143e4b23394b6"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:17.888Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b50cba143e4b23394b2"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:17.985Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 4437,
+  "count": 1,
+  "sum": 4437,
+  "min": 4437,
+  "max": 4437,
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "kafka_payloads",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b51cba143e4b23394c0"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:32.682Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b51cba143e4b23394be"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:32.682Z"
+  },
+  "metricName": "alfrd_kafka_to_mongo_sink_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b51cba143e4b23394bf"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:32.682Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "sandbox2_mongo_target",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b51cba143e4b23394c1"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:32.682Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b51cba143e4b23394bd"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:32.682Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "kafka_payloads",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b52cba143e4b23394cb"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:34.003Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b52cba143e4b23394cc"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:34.003Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b52cba143e4b23394c9"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:34.003Z"
+  },
+  "metricName": "alfrd_kafka_to_mongo_sink_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b52cba143e4b23394c8"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:34.003Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "kafka_payloads",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b52cba143e4b23394ca"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:34.003Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "sandbox2_mongo_target",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b53cba143e4b23394d4"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:34.958Z"
+  },
+  "metricName": "alfrd_kafka_to_mongo_sink_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b53cba143e4b23394d5"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:34.958Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "sandbox2_mongo_target",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b53cba143e4b23394d6"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:34.958Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b53cba143e4b23394d3"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:34.958Z"
+  },
+  "metricName": "alfrd_mongodb_saver_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "database": "PYMTS",
+    "appName": "alfred",
+    "collection": "kafka_payloads",
+    "env": "sit"
+  }
+},
+{
+  "_id": {
+    "$oid": "68cc8b53cba143e4b23394d7"
+  },
+  "timestamp": {
+    "$date": "2025-09-18T22:44:34.958Z"
+  },
+  "metricName": "alfrd_kafka_record_processor_success_records_count",
+  "metricType": "counter",
+  "value": 0,
+  "count": 0,
+  "sum": 0,
+  "min": {
+    "$numberLong": "9223372036854775807"
+  },
+  "max": {
+    "$numberLong": "-9223372036854775808"
+  },
+  "tags": {
+    "hostname": "WINL09449437",
+    "appName": "alfred",
+    "topic": "ccd01_sb_its_esp_tae8363_outboxprocessortest2",
+    "env": "sit"
+  }
+}]

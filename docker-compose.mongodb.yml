@@ -1,0 +1,60 @@
+services:
+  mongo-dev:
+    image: mongo:6.0
+    container_name: mongo-dev
+    hostname: mongo-dev
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    volumes:
+      - ./mongo-dev-data:/data/db
+      - ./mongo-init:/docker-entrypoint-initdb.d:ro
+    networks: [alfred-mimic-net]
+
+  mongo-sit:
+    image: mongo:6.0
+    container_name: mongo-sit
+    hostname: mongo-sit
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    volumes:
+      - ./mongo-sit-data:/data/db
+      - ./mongo-init:/docker-entrypoint-initdb.d:ro
+    networks: [alfred-mimic-net]
+
+  mongo-pat:
+    image: mongo:6.0
+    container_name: mongo-pat
+    hostname: mongo-pat
+    ports:
+      - "27019:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    volumes:
+      - ./mongo-pat-data:/data/db
+      - ./mongo-init:/docker-entrypoint-initdb.d:ro
+    networks: [alfred-mimic-net]
+
+  mongo-prod:
+    image: mongo:6.0
+    container_name: mongo-prod
+    hostname: mongo-prod
+    ports:
+      - "27020:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    volumes:
+      - ./mongo-prod-data:/data/db
+      - ./mongo-init:/docker-entrypoint-initdb.d:ro
+    networks: [alfred-mimic-net]
+
+networks:
+  alfred-mimic-net:
+    external: true

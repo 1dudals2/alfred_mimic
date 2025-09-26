@@ -1,0 +1,93 @@
+defaults:
+  generation:
+    recordsPerSecond: 600
+    burstRecords: 1200
+    errorRate: 0.003
+    latencyMs:
+      p50: 55
+      p95: 140
+      p99: 320
+
+sinks:
+  - env: dev
+    topic: abpay_pdm
+    mongoUri: mongodb://alfred:alfred@localhost:27017/?authSource=admin
+    database: Observability
+    collections:
+      - name: scalar
+        kind: scalar
+        labelDatabase: ABPAY
+        labelCollection: abpay_pdm_collection
+      - name: summary
+        kind: summary
+        labelDatabase: ABPAY
+        labelCollection: abpay_pdm_collection_summary
+    generation:
+      recordsPerSecond: 550
+      latencyMs:
+        p50: 45
+        p95: 110
+        p99: 260
+
+  - env: sit
+    topic: abpay_raw
+    mongoUri: mongodb://alfred:alfred@localhost:27018/?authSource=admin
+    database: Observability
+    collections:
+      - name: scalar
+        kind: scalar
+        labelDatabase: ABPAY
+        labelCollection: abpay_raw_collection
+      - name: summary
+        kind: summary
+        labelDatabase: ABPAY
+        labelCollection: abpay_raw_collection_summary
+    generation:
+      recordsPerSecond: 750
+      errorRate: 0.004
+      latencyMs:
+        p50: 65
+        p95: 150
+        p99: 340
+
+  - env: pat
+    topic: eftr_tds_raw
+    mongoUri: mongodb://alfred:alfred@localhost:27019/?authSource=admin
+    database: Observability
+    collections:
+      - name: scalar
+        kind: scalar
+        labelDatabase: EFTR
+        labelCollection: eftr_tds_raw_collection
+      - name: summary
+        kind: summary
+        labelDatabase: EFTR
+        labelCollection: eftr_tds_raw_collection_summary
+    generation:
+      recordsPerSecond: 480
+      errorRate: 0.007
+      latencyMs:
+        p50: 80
+        p95: 190
+        p99: 420
+
+  - env: prod
+    topic: eftr_tds_summary
+    mongoUri: mongodb://alfred:alfred@localhost:27020/?authSource=admin
+    database: Observability
+    collections:
+      - name: scalar
+        kind: scalar
+        labelDatabase: EFTR
+        labelCollection: eftr_tds_summary_collection
+      - name: summary
+        kind: summary
+        labelDatabase: EFTR
+        labelCollection: eftr_tds_summary_collection_summary
+    generation:
+      recordsPerSecond: 650
+      errorRate: 0.002
+      latencyMs:
+        p50: 70
+        p95: 160
+        p99: 360
