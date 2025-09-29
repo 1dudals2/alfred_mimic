@@ -28,6 +28,8 @@ class FormState:
     collection_kind: str
     scenario: str
     records: int
+    destination_database: str
+    destination_collection: str
     error: Optional[str] = None
 
 
@@ -56,9 +58,17 @@ def _create_form_state(service: MimicService, values: Dict[str, str]) -> FormSta
     topic = values.get("topic") or (defaults["topics"][0] if defaults["topics"] else "topic")
     collection = values.get("collection") or defaults["collections"][0].name
     kind_default = defaults["collections"][0].kind if defaults["collections"] else "scalar"
-    collection_kind = values.get("collection_kind") or _find_collection_kind(service, collection, kind_default)
+    collection_kind = _find_collection_kind(service, collection, kind_default)
     scenario = values.get("scenario") or next(iter(service.scenarios.keys()))
     records_raw = values.get("records") or "1000"
+    destination_defaults = defaults.get("destinations", [])
+    destination_option = destination_defaults[0] if destination_defaults else None
+    destination_database = values.get("destination_database") or (
+        destination_option.database if destination_option else ""
+    )
+    destination_collection = values.get("destination_collection") or (
+        destination_option.collection if destination_option else ""
+    )
     try:
         records = max(int(records_raw), 0)
     except ValueError:
@@ -70,6 +80,8 @@ def _create_form_state(service: MimicService, values: Dict[str, str]) -> FormSta
         collection_kind=collection_kind.strip() or "scalar",
         scenario=scenario.strip(),
         records=records,
+        destination_database=(destination_database or "").strip(),
+        destination_collection=(destination_collection or "").strip(),
     )
 
 
@@ -109,8 +121,10 @@ def create_app(service: MimicService) -> Flask:
             error = "Topic is required."
         elif not form.collection:
             error = "Collection name is required."
-        elif form.collection_kind not in {"scalar", "summary"}:
-            error = "Collection type must be 'scalar' or 'summary'."
+        elif not form.destination_database:
+            error = "Destination database is required."
+        elif not form.destination_collection:
+            error = "Destination collection is required."
         elif form.records <= 0:
             error = "Record count must be a positive integer."
 
@@ -127,6 +141,8 @@ def create_app(service: MimicService) -> Flask:
                 collection_kind=form.collection_kind,
                 scenario_key=form.scenario,
                 records=form.records,
+                destination_database=form.destination_database,
+                destination_collection=form.destination_collection,
             )
         except Exception as exc:  # pylint: disable=broad-except
             error = f"Failed to run simulation: {exc}"
@@ -145,8 +161,10 @@ def create_app(service: MimicService) -> Flask:
             error = "topic is required"
         elif not form.collection:
             error = "collection is required"
-        elif form.collection_kind not in {"scalar", "summary"}:
-            error = "collection_kind must be 'scalar' or 'summary'"
+        elif not form.destination_database:
+            error = "destination_database is required"
+        elif not form.destination_collection:
+            error = "destination_collection is required"
         elif form.records <= 0:
             error = "records must be positive"
 
@@ -161,6 +179,8 @@ def create_app(service: MimicService) -> Flask:
             collection_kind=form.collection_kind,
             scenario_key=form.scenario,
             records=form.records,
+            destination_database=form.destination_database,
+            destination_collection=form.destination_collection,
         )
         return jsonify(
             {
@@ -173,8 +193,12 @@ def create_app(service: MimicService) -> Flask:
                 "records": result.sample.total_records,
                 "successes": result.sample.successes,
                 "errors": result.sample.errors,
+                "destinationRecords": result.sample.destination_records,
                 "failureBreakdown": result.sample.failure_breakdown,
                 "runLatencyMs": result.sample.run_latency_ms,
+                "destinationDatabase": result.destination_database,
+                "destinationCollection": result.destination_collection,
+                "duplicates": result.sample.duplicates,
             }
         )
 

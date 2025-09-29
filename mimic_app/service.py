@@ -26,6 +26,8 @@ class SimulationOutcome:
     collection: str
     kind: str
     database: str
+    destination_database: str
+    destination_collection: str
     mongo_uri: str
     consumer_config_id: str
     scenario: ScenarioDefinition
@@ -42,6 +44,16 @@ class SimulationOutcome:
     @property
     def records(self) -> int:
         return self.sample.total_records
+
+    @property
+    def duplicates(self) -> int:
+        return self.sample.duplicates
+
+
+@dataclass(frozen=True)
+class DestinationOption:
+    database: str
+    collection: str
 
 
 @dataclass
@@ -95,10 +107,18 @@ class MimicService:
             "notifications.sent",
         ]
         collection_map: Dict[Tuple[str, str], CollectionTarget] = {}
+        destinations_lookup: Dict[Tuple[str, str], DestinationOption] = {}
         for cfg in configs:
             for target in cfg.collections:
                 key = (target.name, target.kind)
                 collection_map.setdefault(key, target)
+                if target.label_database and target.label_collection:
+                    dest_key = (target.label_database.strip(), target.label_collection.strip())
+                    if dest_key not in destinations_lookup:
+                        destinations_lookup[dest_key] = DestinationOption(
+                            database=dest_key[0],
+                            collection=dest_key[1],
+                        )
         fallback_collections = [
             CollectionTarget(name="scalar", kind="scalar"),
             CollectionTarget(name="summary", kind="summary"),
@@ -114,6 +134,15 @@ class MimicService:
             if len(defaults) >= 4:
                 break
         self._default_collections = defaults[:4]
+        if destinations_lookup:
+            self._default_destinations = list(destinations_lookup.values())[:6]
+        else:
+            self._default_destinations = [
+                DestinationOption(database="ABPAY", collection="abpay_pdm_collection"),
+                DestinationOption(database="EFTR", collection="eftr_tds_raw_collection"),
+                DestinationOption(database="PYMTS", collection="kafka_payloads"),
+                DestinationOption(database="GLOBAL", collection="kafka_payloads_global"),
+            ]
 
     @property
     def defaults(self) -> Dict[str, Iterable[CollectionTarget]]:
@@ -121,6 +150,7 @@ class MimicService:
             "envs": self._default_envs,
             "topics": self._default_topics,
             "collections": self._default_collections,
+            "destinations": self._default_destinations,
         }
 
     @property
@@ -167,17 +197,27 @@ class MimicService:
         collection_kind: str,
     ) -> Tuple[SinkConfig, CollectionTarget]:
         base = self._config_index.get((env, topic))
+        if base is None:
+            for cfg in self._configs:
+                if cfg.env == env:
+                    base = cfg
+                    break
         if base:
             target = self._resolve_collection_target(base, collection_name, collection_kind)
+            consumer_id = (
+                base.consumer_config_id
+                if base.topic == topic
+                else f"{env}-{topic}".replace(" ", "_")
+            )
             return (
                 SinkConfig(
                     env=base.env,
-                    topic=base.topic,
+                    topic=topic,
                     mongo_uri=base.mongo_uri,
                     database=base.database,
                     collections=[target],
                     generation=base.generation,
-                    consumer_config_id=base.consumer_config_id,
+                    consumer_config_id=consumer_id,
                 ),
                 target,
             )
@@ -220,21 +260,33 @@ class MimicService:
         collection_kind: str,
         scenario_key: str,
         records: int,
+        destination_database: str,
+        destination_collection: str,
     ) -> SimulationOutcome:
         scenario = self._get_scenario(scenario_key)
         writer = self._ensure_writer(env, topic, collection_name, collection_kind)
         sample = scenario.sample(records, self._rng)
 
-        self._record_metrics(writer, scenario, sample)
+        self._record_metrics(
+            writer,
+            scenario,
+            sample,
+            destination_database=destination_database,
+            destination_collection=destination_collection,
+        )
 
         timestamp = datetime.utcnow()
         writer.write_metrics(
             timestamp=timestamp,
             total_records=sample.total_records,
             successes=sample.successes,
+            errors=sample.errors,
+            duplicates=sample.duplicates,
             processor_latencies_ms=[int(x) for x in sample.processor_latencies_ms],
             mongo_latencies_ms=[int(x) for x in sample.mongo_latencies_ms],
             run_latencies_ms=[sample.run_latency_ms] if sample.run_latency_ms else [],
+            destination_database=destination_database,
+            destination_collection=destination_collection,
         )
 
         result = SimulationOutcome(
@@ -244,6 +296,8 @@ class MimicService:
             collection=collection_name,
             kind=collection_kind,
             database=writer.database_name,
+            destination_database=destination_database,
+            destination_collection=destination_collection,
             mongo_uri=writer.config.mongo_uri,
             consumer_config_id=writer.config.consumer_config_id,
             scenario=scenario,
@@ -257,11 +311,14 @@ class MimicService:
         writer: MongoSinkWriter,
         scenario: ScenarioDefinition,
         sample: ScenarioSample,
+        *,
+        destination_database: str,
+        destination_collection: str,
     ) -> None:
         topic = writer.config.topic
         consumer_id = writer.config.consumer_config_id
-        metric_db = writer.metric_database
-        metric_coll = writer.metric_collection
+        metric_db = destination_database or writer.metric_database
+        metric_coll = destination_collection or writer.metric_collection
 
         self._metrics.kafka_fetched.labels(topic="").inc(sample.total_records)
         self._metrics.kafka_fetched.labels(topic=topic).inc(sample.total_records)
@@ -310,7 +367,7 @@ class MimicService:
         for writer in self._writers.values():
             collection = writer.collection
             try:
-                count = collection.count_documents({})
+                count = collection.estimated_document_count()
                 latest = collection.find_one(sort=[("timestamp", -1)])
                 last_metric = latest.get("metricName") if latest else None
                 last_ts = latest.get("timestamp") if latest else None
@@ -331,6 +388,7 @@ class MimicService:
                     )
                 )
             except PyMongoError as exc:
+                error_message = self._format_mongo_error(exc)
                 statuses.append(
                     CollectionStatus(
                         database=writer.database_name,
@@ -339,7 +397,7 @@ class MimicService:
                         document_count=None,
                         last_metric=None,
                         last_timestamp=None,
-                        error=str(exc),
+                        error=error_message,
                     )
                 )
         statuses.sort(key=lambda item: (item.database, item.collection))
@@ -354,5 +412,19 @@ class MimicService:
             client.close()
         self._mongo_clients.clear()
 
+    @staticmethod
+    def _format_mongo_error(exc: PyMongoError) -> str:
+        message = str(exc)
+        code = None
+        details = getattr(exc, "details", None)
+        if isinstance(details, dict):
+            code = details.get("code")
+            errmsg = details.get("errmsg")
+            if errmsg:
+                message = errmsg
+        if code == 13 or "requires authentication" in message.lower():
+            return "MongoDB authentication is required to inspect collection metrics."
+        return message
 
-__all__ = ["CollectionStatus", "MimicService", "SimulationOutcome"]
+
+__all__ = ["CollectionStatus", "DestinationOption", "MimicService", "SimulationOutcome"]

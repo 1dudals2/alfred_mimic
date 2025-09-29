@@ -72,11 +72,35 @@
           </label>
 
           <label>
-            Collection type
-            <select name="collection_kind">
-              <option value="scalar" {% if form.collection_kind == 'scalar' %}selected{% endif %}>Scalar</option>
-              <option value="summary" {% if form.collection_kind == 'summary' %}selected{% endif %}>Summary</option>
-            </select>
+            Destination database
+            <input
+              type="text"
+              name="destination_database"
+              list="destination-database-options"
+              value="{{ form.destination_database }}"
+              required
+            />
+            <datalist id="destination-database-options">
+              {% for option in defaults.destinations %}
+                <option value="{{ option.database }}"></option>
+              {% endfor %}
+            </datalist>
+          </label>
+
+          <label>
+            Destination collection
+            <input
+              type="text"
+              name="destination_collection"
+              list="destination-collection-options"
+              value="{{ form.destination_collection }}"
+              required
+            />
+            <datalist id="destination-collection-options">
+              {% for option in defaults.destinations %}
+                <option value="{{ option.collection }}"></option>
+              {% endfor %}
+            </datalist>
           </label>
 
           <label>
@@ -140,6 +164,14 @@
             <span class="value">{{ result.collection }} ({{ result.kind }})</span>
           </div>
           <div>
+            <span class="label">Destination DB</span>
+            <span class="value">{{ result.destination_database }}</span>
+          </div>
+          <div>
+            <span class="label">Destination collection</span>
+            <span class="value">{{ result.destination_collection }}</span>
+          </div>
+          <div>
             <span class="label">Scenario</span>
             <span class="value">{{ result.scenario.label }}</span>
           </div>
@@ -154,6 +186,10 @@
           <div>
             <span class="label">Failures</span>
             <span class="value error">{{ result.sample.errors }}</span>
+          </div>
+          <div>
+            <span class="label">Duplicates routed to global</span>
+            <span class="value">{{ result.sample.duplicates }}</span>
           </div>
           <div>
             <span class="label">Run latency</span>

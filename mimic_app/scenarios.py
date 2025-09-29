@@ -15,10 +15,23 @@ class ScenarioSample:
     successes: int
     errors: int
     failure_breakdown: Dict[str, int]
+    duplicates: int
     processor_latencies_ms: List[int]
     mongo_latencies_ms: List[int]
     failure_latencies_ms: List[int]
     run_latency_ms: int
+
+    @property
+    def destination_records(self) -> int:
+        return self.successes
+
+    @property
+    def global_records(self) -> int:
+        return self.total_records
+
+    @property
+    def global_only_records(self) -> int:
+        return self.duplicates
 
 
 @dataclass(frozen=True)
@@ -48,6 +61,7 @@ class ScenarioDefinition:
                 successes=0,
                 errors=0,
                 failure_breakdown=empty_breakdown,
+                duplicates=0,
                 processor_latencies_ms=[],
                 mongo_latencies_ms=[],
                 failure_latencies_ms=[],
@@ -75,11 +89,13 @@ class ScenarioDefinition:
         run_latency_ms = int(round(self._sample_latency_ms(rng) * self.run_latency_scale))
 
         breakdown = self._build_failure_breakdown(errors, rng)
+        duplicates = breakdown.get("duplicate_message", 0)
         return ScenarioSample(
             total_records=records,
             successes=successes,
             errors=errors,
             failure_breakdown=breakdown,
+            duplicates=duplicates,
             processor_latencies_ms=processor_latencies,
             mongo_latencies_ms=mongo_latencies,
             failure_latencies_ms=failure_latencies,
@@ -125,99 +141,107 @@ class ScenarioDefinition:
 def default_scenarios() -> Dict[str, ScenarioDefinition]:
     """Return the built-in scenario catalogue."""
     return {
-        "steady_state": ScenarioDefinition(
-            key="steady_state",
-            label="Steady state",
-            description="Nominal traffic with occasional transformation retries.",
+        "payments_straight_through": ScenarioDefinition(
+            key="payments_straight_through",
+            label="Payments straight-through",
+            description="Healthy payment capture with light duplicate suppression and minimal retries.",
             generation=GenerationProfile(
-                records_per_second=600,
-                error_rate=0.015,
-                latency=LatencyProfile(p50=55, p95=140, p99=320),
+                records_per_second=540,
+                error_rate=0.022,
+                latency=LatencyProfile(p50=48, p95=128, p99=280),
+            ),
+            failure_bias={
+                "json_structure_validation": 0.6,
+                "retrieve_from_schema_registry": 0.8,
+                "transformation": 1.1,
+                "duplicate_message": 0.7,
+                "mongo_pre_validation": 0.5,
+                "deserialization": 0.4,
+                "unknown": 0.3,
+            },
+            mongo_slowdown=1.08,
+            run_latency_scale=1.15,
+            consumer_error_probability=0.05,
+            kafka_error_probability=0.015,
+            max_latency_samples=48,
+        ),
+        "schema_validation_fallout": ScenarioDefinition(
+            key="schema_validation_fallout",
+            label="Schema validation fallout",
+            description="Large spike of new schema versions causing validation rejects before saving.",
+            generation=GenerationProfile(
+                records_per_second=410,
+                error_rate=0.44,
+                latency=LatencyProfile(p50=140, p95=360, p99=840),
+            ),
+            failure_bias={
+                "json_structure_validation": 5.2,
+                "retrieve_from_schema_registry": 1.4,
+                "transformation": 0.8,
+                "duplicate_message": 0.3,
+                "mongo_pre_validation": 0.6,
+                "deserialization": 0.9,
+                "unknown": 0.4,
+            },
+            mongo_slowdown=1.42,
+            run_latency_scale=1.9,
+            consumer_error_probability=0.28,
+            kafka_error_probability=0.12,
+            failure_spike_chance=0.5,
+            failure_spike_multiplier=0.32,
+            max_latency_samples=58,
+        ),
+        "duplicate_replay_window": ScenarioDefinition(
+            key="duplicate_replay_window",
+            label="Duplicate replay quarantine",
+            description="Replay catch-up where duplicate detection routes most traffic away from destination collections.",
+            generation=GenerationProfile(
+                records_per_second=360,
+                error_rate=0.27,
+                latency=LatencyProfile(p50=105, p95=310, p99=680),
             ),
             failure_bias={
                 "json_structure_validation": 0.5,
-                "retrieve_from_schema_registry": 0.8,
-                "transformation": 1.4,
+                "retrieve_from_schema_registry": 0.7,
+                "transformation": 0.9,
+                "duplicate_message": 4.6,
+                "mongo_pre_validation": 0.6,
+                "deserialization": 0.5,
+                "unknown": 0.8,
+            },
+            mongo_slowdown=1.22,
+            run_latency_scale=1.5,
+            consumer_error_probability=0.18,
+            kafka_error_probability=0.07,
+            failure_spike_chance=0.42,
+            failure_spike_multiplier=0.2,
+            max_latency_samples=52,
+        ),
+        "destination_validation_backlog": ScenarioDefinition(
+            key="destination_validation_backlog",
+            label="Destination validation backlog",
+            description="Destination collection applies stricter validation, creating mongo pre-validation rejects and longer commits.",
+            generation=GenerationProfile(
+                records_per_second=620,
+                error_rate=0.16,
+                latency=LatencyProfile(p50=92, p95=255, p99=540),
+            ),
+            failure_bias={
+                "json_structure_validation": 1.2,
+                "retrieve_from_schema_registry": 1.0,
+                "transformation": 2.1,
+                "duplicate_message": 0.9,
+                "mongo_pre_validation": 3.8,
                 "deserialization": 0.6,
-                "unknown": 0.3,
+                "unknown": 0.7,
             },
-            mongo_slowdown=1.05,
-            run_latency_scale=1.1,
-            consumer_error_probability=0.04,
-            kafka_error_probability=0.01,
-            max_latency_samples=50,
-        ),
-        "failure_spike": ScenarioDefinition(
-            key="failure_spike",
-            label="Schema registry outage",
-            description="High failure rate concentrated on schema registry lookups with knock-on effects.",
-            generation=GenerationProfile(
-                records_per_second=450,
-                error_rate=0.55,
-                latency=LatencyProfile(p50=140, p95=420, p99=900),
-            ),
-            failure_bias={
-                "json_structure_validation": 0.4,
-                "retrieve_from_schema_registry": 4.0,
-                "transformation": 1.0,
-                "deserialization": 0.8,
-                "unknown": 1.2,
-            },
-            mongo_slowdown=1.35,
-            run_latency_scale=1.7,
-            consumer_error_probability=0.35,
-            kafka_error_probability=0.18,
-            failure_spike_chance=0.65,
-            failure_spike_multiplier=0.25,
-            max_latency_samples=60,
-        ),
-        "edge_case": ScenarioDefinition(
-            key="edge_case",
-            label="Edge case replay",
-            description="Low-volume replay hammering validation and transformation edge cases.",
-            generation=GenerationProfile(
-                records_per_second=120,
-                error_rate=0.35,
-                latency=LatencyProfile(p50=220, p95=540, p99=1200),
-            ),
-            failure_bias={
-                "json_structure_validation": 3.0,
-                "retrieve_from_schema_registry": 0.9,
-                "transformation": 2.4,
-                "deserialization": 0.8,
-                "unknown": 0.6,
-            },
-            mongo_slowdown=1.6,
-            run_latency_scale=2.0,
-            consumer_error_probability=0.12,
-            kafka_error_probability=0.05,
-            failure_spike_chance=0.35,
-            failure_spike_multiplier=0.15,
-            max_latency_samples=40,
-        ),
-        "recovery_burst": ScenarioDefinition(
-            key="recovery_burst",
-            label="Backlog recovery burst",
-            description="Large backlog drain with a small tail of DLQ routing and higher latencies.",
-            generation=GenerationProfile(
-                records_per_second=900,
-                error_rate=0.08,
-                latency=LatencyProfile(p50=95, p95=260, p99=520),
-            ),
-            failure_bias={
-                "json_structure_validation": 0.8,
-                "retrieve_from_schema_registry": 0.9,
-                "transformation": 1.8,
-                "deserialization": 0.7,
-                "unknown": 0.6,
-            },
-            mongo_slowdown=1.18,
-            run_latency_scale=1.35,
-            consumer_error_probability=0.1,
-            kafka_error_probability=0.05,
-            failure_spike_chance=0.25,
-            failure_spike_multiplier=0.12,
-            max_latency_samples=55,
+            mongo_slowdown=1.28,
+            run_latency_scale=1.4,
+            consumer_error_probability=0.14,
+            kafka_error_probability=0.06,
+            failure_spike_chance=0.3,
+            failure_spike_multiplier=0.18,
+            max_latency_samples=56,
         ),
     }
 

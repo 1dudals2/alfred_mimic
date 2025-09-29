@@ -34,6 +34,8 @@ FAILURE_STAGES = [
     "json_structure_validation",
     "retrieve_from_schema_registry",
     "transformation",
+    "duplicate_message",
+    "mongo_pre_validation",
     "deserialization",
     "unknown",
 ]
