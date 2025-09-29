@@ -1,0 +1,259 @@
+:root {
+  color-scheme: light dark;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.5;
+  font-size: 16px;
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.15), rgba(15, 23, 42, 0.95));
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.page-header,
+.page-footer,
+.card {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(12px);
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #f8fafc;
+}
+
+.subtitle {
+  margin-top: 0.5rem;
+  color: #cbd5f5;
+  max-width: 60ch;
+}
+
+.notice {
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+}
+
+.notice.error {
+  background: rgba(248, 113, 113, 0.15);
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  color: #fecaca;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.form-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-weight: 600;
+}
+
+input,
+select,
+button,
+a.secondary {
+  font: inherit;
+  padding: 0.65rem 0.8rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(15, 23, 42, 0.6);
+  color: inherit;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+input:focus,
+select:focus,
+button:focus,
+a.secondary:focus {
+  outline: none;
+  border-color: rgba(59, 130, 246, 0.8);
+  background: rgba(30, 64, 175, 0.35);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+button.primary {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  border: none;
+  color: #f8fafc;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button.primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(37, 99, 235, 0.35);
+}
+
+a.secondary {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+}
+
+a.secondary:hover {
+  border-color: rgba(148, 163, 184, 0.6);
+  background: rgba(148, 163, 184, 0.15);
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.scenario-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.scenario-list li {
+  background: rgba(30, 41, 59, 0.7);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.scenario-list h3 {
+  margin: 0;
+  color: #f8fafc;
+}
+
+.scenario-list p {
+  margin: 0.5rem 0 0.75rem;
+  color: #cbd5f5;
+}
+
+dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.35rem 1rem;
+  color: #e2e8f0;
+}
+
+dl dt {
+  font-weight: 600;
+  color: #cbd5f5;
+}
+
+dl dd {
+  margin: 0;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.summary .label {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.summary .value {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.summary .value.success {
+  color: #34d399;
+}
+
+.summary .value.error {
+  color: #f87171;
+}
+
+.breakdown,
+.status-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(15, 23, 42, 0.4);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.breakdown th,
+.breakdown td,
+.status-table th,
+.status-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+  text-align: left;
+}
+
+.breakdown thead,
+.status-table thead {
+  background: rgba(30, 41, 59, 0.8);
+  color: #f8fafc;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.status-table tbody tr:hover {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.page-footer {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.page-footer a {
+  color: #60a5fa;
+}
+
+.error {
+  color: #f87171;
+}
+
+.success {
+  color: #34d399;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 1rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  button.primary,
+  a.secondary {
+    width: 100%;
+  }
+}

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Alfred Kafka → Mongo Sink Mimic</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>Alfred Kafka → Mongo Sink Mimic</h1>
+      <p class="subtitle">
+        Orchestrate realistic metric series based on production scenarios and inspect the
+        MongoDB collections they populate.
+      </p>
+    </header>
+
+    {% if error %}
+      <section class="notice error">{{ error }}</section>
+    {% endif %}
+
+    <main class="layout">
+      <section class="card">
+        <h2>Generate metrics</h2>
+        <form method="post" action="{{ url_for('simulate') }}" class="form-grid">
+          <label>
+            Environment
+            <input
+              type="text"
+              name="env"
+              list="env-options"
+              value="{{ form.env }}"
+              required
+            />
+            <datalist id="env-options">
+              {% for env in defaults.envs %}
+                <option value="{{ env }}"></option>
+              {% endfor %}
+            </datalist>
+          </label>
+
+          <label>
+            Topic
+            <input
+              type="text"
+              name="topic"
+              list="topic-options"
+              value="{{ form.topic }}"
+              required
+            />
+            <datalist id="topic-options">
+              {% for topic in defaults.topics %}
+                <option value="{{ topic }}"></option>
+              {% endfor %}
+            </datalist>
+          </label>
+
+          <label>
+            Collection
+            <input
+              type="text"
+              name="collection"
+              list="collection-options"
+              value="{{ form.collection }}"
+              required
+            />
+            <datalist id="collection-options">
+              {% for option in defaults.collections %}
+                <option value="{{ option.name }}">{{ option.name }} ({{ option.kind }})</option>
+              {% endfor %}
+            </datalist>
+          </label>
+
+          <label>
+            Collection type
+            <select name="collection_kind">
+              <option value="scalar" {% if form.collection_kind == 'scalar' %}selected{% endif %}>Scalar</option>
+              <option value="summary" {% if form.collection_kind == 'summary' %}selected{% endif %}>Summary</option>
+            </select>
+          </label>
+
+          <label>
+            Scenario
+            <select name="scenario">
+              {% for key, scenario in scenarios.items() %}
+                <option value="{{ key }}" {% if form.scenario == key %}selected{% endif %}>{{ scenario.label }}</option>
+              {% endfor %}
+            </select>
+          </label>
+
+          <label>
+            Messages to publish
+            <input type="number" name="records" min="1" value="{{ form.records }}" required />
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" class="primary">Generate</button>
+            <a class="secondary" href="{{ url_for('metrics') }}" target="_blank" rel="noopener">View Prometheus metrics</a>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Scenario catalogue</h2>
+        <ul class="scenario-list">
+          {% for key, scenario in scenarios.items() %}
+            <li>
+              <h3>{{ scenario.label }}</h3>
+              <p>{{ scenario.description }}</p>
+              <dl>
+                <div>
+                  <dt>Error rate</dt>
+                  <dd>{{ '%.1f' | format(scenario.generation.error_rate * 100) }}%</dd>
+                </div>
+                <div>
+                  <dt>Latency profile (ms)</dt>
+                  <dd>P50 {{ scenario.generation.latency.p50 | int }}, P95 {{ scenario.generation.latency.p95 | int }}, P99 {{ scenario.generation.latency.p99 | int }}</dd>
+                </div>
+              </dl>
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+    </main>
+
+    <section class="card">
+      <h2>Last simulation</h2>
+      {% if result %}
+        <div class="summary">
+          <div>
+            <span class="label">Environment</span>
+            <span class="value">{{ result.env }}</span>
+          </div>
+          <div>
+            <span class="label">Topic</span>
+            <span class="value">{{ result.topic }}</span>
+          </div>
+          <div>
+            <span class="label">Collection</span>
+            <span class="value">{{ result.collection }} ({{ result.kind }})</span>
+          </div>
+          <div>
+            <span class="label">Scenario</span>
+            <span class="value">{{ result.scenario.label }}</span>
+          </div>
+          <div>
+            <span class="label">Records</span>
+            <span class="value">{{ result.sample.total_records }}</span>
+          </div>
+          <div>
+            <span class="label">Successes</span>
+            <span class="value success">{{ result.sample.successes }}</span>
+          </div>
+          <div>
+            <span class="label">Failures</span>
+            <span class="value error">{{ result.sample.errors }}</span>
+          </div>
+          <div>
+            <span class="label">Run latency</span>
+            <span class="value">{{ result.sample.run_latency_ms }} ms</span>
+          </div>
+        </div>
+        <table class="breakdown">
+          <thead>
+            <tr>
+              <th>Processor stage</th>
+              <th>Failed records</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for stage, count in result.sample.failure_breakdown.items() %}
+              <tr>
+                <td>{{ stage.replace('_', ' ') }}</td>
+                <td>{{ count }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No simulations have been executed yet. Use the form above to generate metrics.</p>
+      {% endif %}
+    </section>
+
+    <section class="card">
+      <h2>MongoDB collections</h2>
+      {% if status %}
+        <table class="status-table">
+          <thead>
+            <tr>
+              <th>Database</th>
+              <th>Collection</th>
+              <th>Type</th>
+              <th>Documents</th>
+              <th>Last metric</th>
+              <th>Last timestamp</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for entry in status %}
+              <tr>
+                <td>{{ entry.database }}</td>
+                <td>{{ entry.collection }}</td>
+                <td>{{ entry.kind }}</td>
+                <td>{{ entry.document_count if entry.document_count is not none else '—' }}</td>
+                <td>{{ entry.last_metric or '—' }}</td>
+                <td>{{ entry.last_timestamp.isoformat() if entry.last_timestamp else '—' }}</td>
+                <td>
+                  {% if entry.error %}
+                    <span class="error">{{ entry.error }}</span>
+                  {% else %}
+                    <span class="success">Healthy</span>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No Mongo writers have been initialised yet.</p>
+      {% endif %}
+    </section>
+
+    <footer class="page-footer">
+      <p>
+        Need raw metrics? Hit the <a href="{{ url_for('metrics') }}" target="_blank" rel="noopener">/metrics</a>
+        endpoint or orchestrate simulations programmatically via <code>POST /api/simulate</code>.
+      </p>
+    </footer>
+  </body>
+</html>

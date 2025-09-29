@@ -6,7 +6,9 @@ Kafka topics into `Observability.scalar`/`Observability.summary` while tagging
 each record as if it belonged to the source domain databases (e.g.
 `ABPAY.abpay_raw_collection`). Use it alongside your front-end metric dashboards
 to exercise throughput, latency, and JVM health scenarios without connecting to
-real Kafka or Mongo clusters.
+real Kafka or Mongo clusters. The refactored web control plane lets you compose
+scenario-driven traffic bursts, push them through the synthetic pipeline, and
+observe the resulting MongoDB collections without touching configuration files.
 
 ## Repository layout
 
@@ -18,7 +20,14 @@ real Kafka or Mongo clusters.
 ├── mongo-init/
 │   └── observability-timeseries.js  # Example init script that can create time-series collections
 ├── mimic_app/                   # Python mimic generator package
-│   └── main.py
+│   ├── main.py                  # Flask entry point and form handling
+│   ├── metrics.py               # Prometheus instruments mirroring the JVM service
+│   ├── models.py                # Shared dataclasses and helpers
+│   ├── mongo.py                 # MongoDB writer façade
+│   ├── scenarios.py             # Scenario catalogue for synthetic runs
+│   ├── service.py               # Simulation orchestration and status inspection
+│   ├── templates/index.html     # Control plane front-end
+│   └── static/style.css         # Tailored glassmorphism styling
 └── requirements.txt             # Python dependencies
 ```
 
@@ -231,7 +240,6 @@ Create a Python environment (3.9+) and install the requirements:
 ```bash
 # First-time setup
 python3 -m venv .venv
-# Activate for this shell
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
@@ -239,40 +247,87 @@ pip install -r requirements.txt
 If activation reports `no such file or directory`, the `.venv` folder does not
 exist—rerun the `python3 -m venv .venv` step in the current directory.
 
-Launch the generator. By default it reads `config/mimic-topology.yml`, updates
-metrics every second, and exposes them on `http://localhost:8000/metrics`:
+Start the control plane web server:
 
 ```bash
 python -m mimic_app.main
 ```
 
-(`mimic_app` currently has no `__main__.py`, so running `python -m mimic_app`
-will report that the package cannot be executed directly.)
+Flask prints `Running on http://127.0.0.1:8000/` (or your chosen `--host`
+argument). Leave that terminal open—refreshes in the browser and API calls use
+the same long-lived process.
 
-If startup fails with `Address already in use`, another process is bound to the
-metrics port (default `8000`). Find and stop it with
-`lsof -iTCP:8000 -sTCP:LISTEN` or launch the mimic on a new port, e.g.
-`python -m mimic_app.main --port 9000`.
+Command-line flags (or matching environment variables) let you tweak runtime
+behaviour:
 
-Keep the process running in that terminal—the mimic logs
-`Serving Alfred mimic metrics on http://0.0.0.0:8000/metrics`. If you stop it or
-close the shell, the `/metrics` endpoint disappears.
+| CLI flag | Environment variable | Purpose |
+| --- | --- | --- |
+| `--config PATH` | `MIMIC_CONFIG` | YAML topology providing default env/topic/collection presets. |
+| `--mongo-uri URI` | `MIMIC_MONGO_URI` | Fallback MongoDB URI used when the chosen env/topic pair is not present in the topology. |
+| `--host HOST` | `MIMIC_HOST` | Address Flask binds to (default `0.0.0.0`). |
+| `--port PORT` | `MIMIC_PORT` | HTTP port for the UI, API, and Prometheus metrics (default `8000`). |
+| `--debug` | — | Enables Flask debug mode with live reload. |
 
-Environment variables can override the defaults:
+## 4. Use the web control plane
 
-* `MIMIC_CONFIG` – path to a topology file.
-* `MIMIC_PORT` – metrics port (default `8000`).
-* `MIMIC_INTERVAL` – update cadence in seconds (default `1.0`).
+Navigate to `http://localhost:8000/` and drive simulations directly from the
+browser:
 
-You can also pass the same flags directly, for example:
+1. Pick the **environment**, **topic**, and **collection**. The form suggests
+   values from `config/mimic-topology.yml`, but you can type arbitrary values if
+   you want to model a new deployment.
+2. Choose a **collection type** (`scalar` counters or `summary` histograms).
+3. Select one of the curated **scenarios**:
+   - **Steady state** – healthy throughput with the occasional transformation
+     retry.
+   - **Schema registry outage** – heavy failure rate concentrated on schema
+     registry lookups and consumer error noise.
+   - **Edge case replay** – small replay batches dominated by validation and
+     transformation edge cases.
+   - **Backlog recovery burst** – large success-heavy catch-up window with a
+     small failure tail.
+4. Enter how many **messages to publish** for this simulation and click
+   **Generate**.
+
+The page updates live with:
+
+- A **Last simulation** summary showing successes, failures, latency, and a
+  per-stage failure breakdown mirroring the Java processor.
+- A **MongoDB collections** table that queries the live databases to report
+  document counts, the most recent metric name, and connection health.
+- At-a-glance scenario descriptions so you can quickly brief teammates before a
+  demo.
+
+### REST and Prometheus endpoints
+
+You can automate the same workflow without a browser:
+
+* `POST /api/simulate` – accepts JSON mirroring the form fields
+  (`env`, `topic`, `collection`, `collection_kind`, `scenario`, `records`) and
+  returns the generated counts/latencies.
+* `GET /api/status` – returns the MongoDB status table shown in the UI.
+* `GET /metrics` – exposes the Prometheus metrics updated during each run. Point
+  Prometheus or `curl` at this endpoint to validate dashboards.
+
+Sample request:
 
 ```bash
-python -m mimic_app --config ./config/mimic-topology.yml --port 9000 --interval 0.5
+curl -X POST http://localhost:8000/api/simulate \
+  -H 'content-type: application/json' \
+  -d '{
+        "env": "dev",
+        "topic": "abpay_pdm",
+        "collection": "scalar",
+        "collection_kind": "scalar",
+        "scenario": "failure_spike",
+        "records": 5000
+      }'
 ```
 
-Stop the generator with <kbd>Ctrl</kbd>+<kbd>C</kbd>.
+The response echoes the totals and failure breakdown so you can wire the mimic
+into automated smoke tests or chaos scripts.
 
-## 4. Validate the exported metrics
+## 5. Validate the exported metrics
 
 1. Use `mongosh` or MongoDB Compass to confirm each container is reachable,
    e.g. `mongosh 'mongodb://alfred:alfred@localhost:27017/?authSource=admin'`
